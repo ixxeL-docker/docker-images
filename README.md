@@ -9,3 +9,4 @@ General repository to store multi purpose Dockerfiles.
 Currently storing :
 - `multi-tools-alpine` image : Container aiming at providing Ops tools to handle servers and CD actions (kubectl, oc, helm, vault...)
 - `unit-tests-alpine` image : Container aiming at providing unit tests tools to handle CI actions (hadolint, pytest, flake8, shellcheck...)
+- `toolkit` image : More or less the same as multi-tools-alpine in a different way
