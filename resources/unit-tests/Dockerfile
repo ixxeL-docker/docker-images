@@ -31,7 +31,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     skopeo \
     shellcheck \
     nodejs \
-    npm
+    npm \
+    tzdata \
+    && cp /usr/share/zoneinfo/${TZ} /etc/localtime
 
 RUN pip3 install --no-cache-dir flake8 pytest pytest-cov coverage
 
