@@ -55,6 +55,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     python3 \
     py3-pip \
     bind-tools \
+    tzdata \
+    && cp /usr/share/zoneinfo/${TZ} /etc/localtime \
     && rm -f /var/lib/containers/storage/libpod/bolt_state.db \
     && sed -i "s/driver = \"overlay\"/driver = \"vfs\"/" /etc/containers/storage.conf \
     && pip3 install --no-cache-dir awxkit ansible-tower-cli \
