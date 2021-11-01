@@ -2,7 +2,7 @@ FROM alpine:latest AS builder
 
 RUN apk update --no-cache \
     && apk add curl --no-cache --update \
-    && HADOLINT_VERSION=$(curl -sSL "https://github.com/hadolint/hadolint/releases" | sed -n '/Latest release<\/a>/,$p' | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1) \
+    && HADOLINT_VERSION=$(curl -sSL "https://github.com/hadolint/hadolint/tags" |grep -oE 'v[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}' | sort | uniq | tail -1) \
     && curl -L "https://github.com/hadolint/hadolint/releases/download/$HADOLINT_VERSION/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint \
     && chmod +x /usr/local/bin/hadolint
 
