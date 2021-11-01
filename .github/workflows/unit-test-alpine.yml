@@ -30,7 +30,7 @@ jobs:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     container: 
-      image: ixxel/unit-tests-alpine:latest
+      image: ixxel/unit-tests-alpine:1.0.0-6
     defaults:
       run:
         shell: bash
