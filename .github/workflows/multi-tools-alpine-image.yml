@@ -112,7 +112,7 @@ jobs:
         input: '/tmp/${IMAGE_NAME}-${IMAGE_VERSION}.tar'
         security-checks: 'vuln,config'
         severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
-        output: 'result-img.log'
+        output: '""'
         format: 'table'
         template: ''
         skip-dirs: '/usr/local/bin,/usr/bin'
