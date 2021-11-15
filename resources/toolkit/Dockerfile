@@ -2,11 +2,11 @@ FROM alpine:latest AS builder
 
 RUN apk update --no-cache \
     && apk add curl wget --no-cache --update \
-    && ARGO_VERSION=$(curl -sSL "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') \
-    && curl -sSL -o /usr/local/bin/argocd "https://github.com/argoproj/argo-cd/releases/download/$ARGO_VERSION/argocd-linux-amd64" \
+    && ARGO_VERSION=$(curl -sSL "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sort | uniq) \
+    && curl -sSL -o /usr/local/bin/argocd "https://github.com/argoproj/argo-cd/releases/download/${ARGO_VERSION}/argocd-linux-amd64" \
     && chmod +x /usr/local/bin/argocd \
-    && HELM_VERSION=$(curl -sSL "https://github.com/kubernetes/helm/releases" | sed -n '/Latest release<\/a>/,$p' | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1) \
-    && curl -sSL "https://get.helm.sh/helm-$HELM_VERSION-linux-amd64.tar.gz" | tar xzv \
+    && HELM_VERSION=$(curl -sSL "https://github.com/kubernetes/helm/releases/latest" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sort | uniq) \
+    && curl -sSL "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" | tar xzv \
     && mv linux-amd64/helm /usr/local/bin/helm \
     && curl -sSL "https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz" -o /tmp/oc.tar.gz \
     && tar -xzvf /tmp/oc.tar.gz -C /bin \
