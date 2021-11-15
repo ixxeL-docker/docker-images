@@ -86,7 +86,7 @@ jobs:
       uses: ixxeL-actions/buildah-push@main
       with:
         image-id: 'localhost/${IMAGE_NAME}:${IMAGE_VERSION}'
-        transport: 'oci-archive'
+        transport: 'docker-archive'
         destination: '/tmp/${IMAGE_NAME}-${IMAGE_VERSION}.tar'
         format: '""'
     - name: Security scan for docker image (Grype)
@@ -96,7 +96,7 @@ jobs:
       uses: ixxeL-actions/grype-scan@main
       with:
         image-ref: '/tmp/${IMAGE_NAME}-${IMAGE_VERSION}.tar'
-        transport: 'oci-archive'
+        transport: 'docker-archive'
         fail-on: '""'
         output: 'table'
         scope: 'AllLayers'
@@ -109,7 +109,7 @@ jobs:
       uses: ixxeL-actions/trivy-scan@main
       with:
         scan-type: 'image'
-        image-ref: '/tmp/${IMAGE_NAME}-${IMAGE_VERSION}.tar'
+        input: '/tmp/${IMAGE_NAME}-${IMAGE_VERSION}.tar'
         security-checks: 'vuln,config'
         severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
         output: 'result-img.log'
