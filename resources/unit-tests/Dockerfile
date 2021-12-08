@@ -2,9 +2,9 @@ FROM alpine:latest AS builder
 
 RUN apk update --no-cache \
     && apk add curl --no-cache --update \
-    && HADOLINT_VERSION=$(curl -sSL "https://github.com/hadolint/hadolint/tags" |grep -oE 'v[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}' | sort | uniq | tail -1) \
-    && curl -L "https://github.com/hadolint/hadolint/releases/download/$HADOLINT_VERSION/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint \
-    && chmod +x /usr/local/bin/hadolint
+    && curl -sLO "https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64" \
+    && chmod +x hadolint-Linux-x86_64 \
+    && mv ./hadolint-Linux-x86_64 /usr/local/bin/hadolint 
 
 FROM alpine:latest
 
@@ -12,7 +12,7 @@ LABEL maintainer="Frederic Spiers <fredspiers@gmail.com>" \
       component="CI/CD tools"
 
 ENV TZ="Europe/Paris" \
-    IMG_VERSION="1.0.0"
+    IMG_VERSION="1.1.0"
 
 COPY --from=builder /usr/local/bin/hadolint /usr/local/bin/
 
