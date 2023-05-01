@@ -1,0 +1,26 @@
+---
+name: ci-toolbox build
+on:
+  push:
+    branches:
+    - main
+    paths:
+      - 'src/ci-toolbox/**'
+      - '.github/workflows/ci-toolbox.yml'
+  workflow_dispatch:
+
+jobs:
+  ci-toolbox:
+    uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
+    with:
+      workingdir: src/ci-toolbox
+      format: cli
+      img-name: ci-toolbox
+      artefact: Dockerfile
+      github-api-auth: true
+      github-api-rest-token: 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
+      fail-on: low
+      cache-registry: docker.io/ixxel
+      docker-hub-login: true
+      docker-io-user: ixxel
+      docker-io-pwd: 2794d8ea-0fa5-4039-8036-9bc85f3765af
