@@ -11,23 +11,20 @@ on:
 
 jobs:
   certs:
-    steps:
-    - name: build-img
-      id: build-img
-      uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
-      with:
-        workingdir: src/certs
-        format: cli
-        img-name: certs
-        artefact: Dockerfile
-        github-api-auth: true
-        fail-on: low
-        cache-registry: docker.io/ixxel
-        docker-hub-login: true
-        docker-io-user: ixxel
-      secrets:
-        github-api-rest-token: ${{ secrets.GH_API_TOKEN }}
-        docker-io-pwd: ${{ secrets.DOCKER_IO_PWD }}
+    uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
+    with:
+      workingdir: src/certs
+      format: cli
+      img-name: certs
+      artefact: Dockerfile
+      github-api-auth: true
+      fail-on: low
+      cache-registry: docker.io/ixxel
+      docker-hub-login: true
+      docker-io-user: ixxel
+    secrets:
+      github-api-rest-token: ${{ secrets.GH_API_TOKEN }}
+      docker-io-pwd: ${{ secrets.DOCKER_IO_PWD }}
 
     # name: Build
     # runs-on: ubuntu-20.04
