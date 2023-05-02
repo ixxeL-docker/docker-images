@@ -22,7 +22,7 @@ jobs:
       cache-registry: docker.io/ixxel
       docker-hub-login: true
       docker-io-user: ixxel
-      build-arg: "CREATION_DATE=$(shell TZ=Europe/Paris date --iso-8601=second)"
+      build-arg: "CREATION_DATE=$(TZ=Europe/Paris date --iso-8601=second)"
     secrets:
       github-api-rest-token: ${{ secrets.GH_API_TOKEN }}
       docker-io-pwd: ${{ secrets.DOCKER_IO_PWD }}
