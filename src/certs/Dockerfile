@@ -31,3 +31,5 @@ LABEL org.opencontainers.image.title="certs-base"
 LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/certs/Dockerfile"
 LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
 LABEL org.opencontainers.image.created="${CREATION_DATE}"
+
+ARG TEST
