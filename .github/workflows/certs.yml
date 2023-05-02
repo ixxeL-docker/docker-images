@@ -20,7 +20,7 @@ jobs:
       github-api-auth: true
       fail-on: low
       cache-registry: docker.io/ixxel
-      docker-hub-login: true
+      docker-hub-login: false
       docker-io-user: ixxel
     secrets:
       github-api-rest-token: ${{ secrets.GH_API_TOKEN }}
