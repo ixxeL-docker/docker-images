@@ -28,5 +28,3 @@ RUN --mount=type=cache,target=/var/cache/apk \
     ca-certificates \
     && cp /usr/share/zoneinfo/${TZ} /etc/localtime \
     && update-ca-certificates
-
-ARG TEST
