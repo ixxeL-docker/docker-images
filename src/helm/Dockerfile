@@ -2,7 +2,7 @@
 ARG BASE_REGISTRY
 FROM ${BASE_REGISTRY}python:3.11-alpine3.17
 
-ARG IMG_USER=pipelines
+# ARG IMG_USER=pipelines
 
 ENV TZ="Europe/Paris"
 
@@ -31,10 +31,11 @@ RUN helm plugin install "https://github.com/chartmuseum/helm-push" && \
 
 RUN pip3 install --no-cache-dir --upgrade checkov
 
-ENV IMG_USER="$IMG_USER"
-ENV HELM_PLUGINS=/home/${IMG_USER}/.local/share/helm/plugins
+# ENV IMG_USER="$IMG_USER"
+# ENV HELM_PLUGINS=/home/${IMG_USER}/.local/share/helm/plugins
+ENV HELM_PLUGINS=/root/.local/share/helm/plugins
 
-RUN addgroup -S ${IMG_USER} && \
-    adduser -S ${IMG_USER} -G ${IMG_USER}
+# RUN addgroup -S ${IMG_USER} && \
+#     adduser -S ${IMG_USER} -G ${IMG_USER}
 
-USER ${IMG_USER}:${IMG_USER} 
+# USER ${IMG_USER}:${IMG_USER} 
