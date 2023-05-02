@@ -1,20 +1,20 @@
 ---
-name: ci-toolbox build
+name: Builder toolbox build
 on:
   push:
     branches:
     - 'main'
     - 'release/**'
     paths:
-      - 'src/ci/**'
+      - 'src/builder/**'
   workflow_dispatch:
 
 jobs:
-  ci-toolbox:
+  helm:
     uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
     with:
-      component: ci
-      workingdir: src/ci
+      component: builder
+      workingdir: src/builder
       format: cli
       img-name: toolbox
       artefact: Dockerfile
@@ -26,3 +26,4 @@ jobs:
     secrets:
       github-api-rest-token: ${{ secrets.GH_API_TOKEN }}
       docker-io-pwd: ${{ secrets.DOCKER_IO_PWD }}
+
