@@ -4,7 +4,11 @@
 ARG BASE_REGISTRY
 FROM ${BASE_REGISTRY}python:3.11-alpine3.17 as certs
 
-ARG CREATION_DATE
+LABEL maintainer="fredspiers@gmail.com"
+LABEL org.opencontainers.image.authors="FSPIERS"
+LABEL org.opencontainers.image.title="certs-base"
+LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/certs/Dockerfile"
+LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
 
 ENV TZ="Europe/Paris"
 
@@ -25,11 +29,3 @@ RUN --mount=type=cache,target=/var/cache/apk \
     && cp /usr/share/zoneinfo/${TZ} /etc/localtime \
     && update-ca-certificates
 
-LABEL maintainer="fredspiers@gmail.com"
-LABEL org.opencontainers.image.authors="FSPIERS"
-LABEL org.opencontainers.image.title="certs-base"
-LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/certs/Dockerfile"
-LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
-LABEL org.opencontainers.image.created="${CREATION_DATE}"
-
-ARG TEST
