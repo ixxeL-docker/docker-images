@@ -37,4 +37,4 @@ ENV HELM_PLUGINS=/home/${IMG_USER}/.local/share/helm/plugins
 RUN addgroup -S ${IMG_USER} && \
     adduser -S ${IMG_USER} -G ${IMG_USER}
 
-USER ${IMG_USER}:${IMG_USER}
+USER ${IMG_USER}:${IMG_USER} 
