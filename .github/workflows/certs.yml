@@ -3,16 +3,17 @@ name: certs build
 on:
   push:
     branches:
-    - main
+    - 'main'
+    - 'release/**'
     paths:
       - 'src/certs/**'
-      - '.github/workflows/certs.yml'
   workflow_dispatch:
 
 jobs:
   certs:
     uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
     with:
+      component: certs
       workingdir: src/certs
       format: cli
       img-name: certs
