@@ -11,8 +11,6 @@ LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
 
 ENV TZ="Europe/Paris"
 
-COPY --from=builder /usr/local/bin/gh /usr/local/bin/
-
 RUN apk update --no-cache && \
     apk upgrade --no-cache && \
     apk add --no-cache --update \
