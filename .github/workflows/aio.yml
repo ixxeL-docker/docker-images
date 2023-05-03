@@ -25,7 +25,7 @@ on:
     #     type: environment
 
 jobs:
-  aio:
+  aio-toolbox:
     uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
     with:
       build-image: ${{ vars.BUILD_IMG }}
