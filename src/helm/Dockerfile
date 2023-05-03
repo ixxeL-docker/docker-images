@@ -20,6 +20,7 @@ RUN apk update --no-cache && \
     jq \
     yq \
     git \
+    util-linux \
     tzdata && \
     apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
     helm && \
