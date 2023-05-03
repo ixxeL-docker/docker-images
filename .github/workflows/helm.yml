@@ -1,5 +1,5 @@
 ---
-name: helm build
+name: helm-toolbox build
 on:
   push:
     branches:

@@ -1,5 +1,5 @@
 ---
-name: Builder toolbox build
+name: builder-toolbox build
 on:
   push:
     branches:

@@ -1,5 +1,5 @@
 ---
-name: certs build
+name: certs-toolbox build
 on:
   push:
     branches:
