@@ -41,4 +41,5 @@ RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpi
     helm
 
 RUN apk add --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
-    kubectl
+    kubectl \
+    dive
