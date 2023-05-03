@@ -10,11 +10,7 @@ RUN apk update --no-cache && \
     apk add tar curl --no-cache --update && \
     curl -sSfLO "https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64" && \
     chmod +x hadolint-Linux-x86_64 && \
-    mv ./hadolint-Linux-x86_64 /usr/local/bin/hadolint && \
-    GH_VERSION=$(curl -sSfL "https://github.com/cli/cli/releases/latest" | grep -Eo "^\\s+v[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}" | sed 's/ //g' | sort -rV | uniq | head -1) && \
-    GH_VERSION_LIGHT=$(echo "$GH_VERSION" | sed 's/v//g') && \
-    curl -sSfL "https://github.com/cli/cli/releases/download/${GH_VERSION}/gh_${GH_VERSION_LIGHT}_linux_amd64.tar.gz" | tar -xz && \
-    mv ./gh_${GH_VERSION_LIGHT}_linux_amd64/bin/gh /usr/local/bin
+    mv ./hadolint-Linux-x86_64 /usr/local/bin/hadolint
 
 FROM ${BASE_REGISTRY}python:3.11-alpine3.17
 
@@ -26,9 +22,7 @@ LABEL org.opencontainers.image.title="ci-toolbox"
 LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/ci/Dockerfile"
 LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
 
-COPY --from=builder /usr/local/bin/hadolint \
-                    /usr/local/bin/gh \
-                    /usr/local/bin/
+COPY --from=builder /usr/local/bin/hadolint /usr/local/bin/
 
 RUN apk update --no-cache && \
     apk upgrade --no-cache && \
@@ -47,8 +41,10 @@ RUN apk update --no-cache && \
     gradle \
     yarn \
     tzdata && \
-    apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
-    helm && \
     cp /usr/share/zoneinfo/${TZ} /etc/localtime
+
+RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
+    helm \
+    github-cli
 
 RUN pip3 install --no-cache-dir --upgrade checkov

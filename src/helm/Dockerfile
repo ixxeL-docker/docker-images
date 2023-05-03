@@ -4,8 +4,6 @@
 ARG BASE_REGISTRY
 FROM ${BASE_REGISTRY}python:3.11-alpine3.17
 
-# ARG IMG_USER=pipelines
-
 ENV TZ="Europe/Paris"
 
 LABEL maintainer="fredspiers@gmail.com"
@@ -24,9 +22,11 @@ RUN apk update --no-cache && \
     git \
     util-linux \
     tzdata && \
-    apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
-    helm && \
     cp /usr/share/zoneinfo/${TZ} /etc/localtime
+
+RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
+    helm \
+    github-cli
 
 RUN helm plugin install "https://github.com/chartmuseum/helm-push" && \
     helm plugin install "https://github.com/datreeio/helm-datree" && \
@@ -35,8 +35,3 @@ RUN helm plugin install "https://github.com/chartmuseum/helm-push" && \
 RUN pip3 install --no-cache-dir --upgrade checkov
 
 ENV HELM_PLUGINS=/root/.local/share/helm/plugins
-
-# RUN addgroup -S ${IMG_USER} && \
-#     adduser -S ${IMG_USER} -G ${IMG_USER}
-
-# USER ${IMG_USER}:${IMG_USER} 

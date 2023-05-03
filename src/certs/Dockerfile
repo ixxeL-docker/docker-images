@@ -3,16 +3,6 @@
 # checkov:skip=CKV_DOCKER_8: Kaniko must be root to work
 ARG BASE_REGISTRY
 
-FROM ${BASE_REGISTRY}alpine:3.17 AS builder
-
-SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-RUN apk update --no-cache && \
-    apk add tar curl --no-cache --update && \
-    GH_VERSION=$(curl -sSfL "https://github.com/cli/cli/releases/latest" | grep -Eo "^\\s+v[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}" | sed 's/ //g' | sort -rV | uniq | head -1) && \
-    GH_VERSION_LIGHT=$(echo "$GH_VERSION" | sed 's/v//g') && \
-    curl -sSfL "https://github.com/cli/cli/releases/download/${GH_VERSION}/gh_${GH_VERSION_LIGHT}_linux_amd64.tar.gz" | tar -xz && \
-    mv ./gh_${GH_VERSION_LIGHT}_linux_amd64/bin/gh /usr/local/bin
-
 FROM ${BASE_REGISTRY}python:3.11-alpine3.17 as certs
 
 LABEL maintainer="fredspiers@gmail.com"
@@ -25,7 +15,6 @@ ENV TZ="Europe/Paris"
 
 COPY ./pki_root_ca.pem /usr/local/share/ca-certificates/root.crt
 COPY ./pki_int_ca.pem /usr/local/share/ca-certificates/int.crt
-COPY --from=builder /usr/local/bin/gh /usr/local/bin/
 
 RUN apk update --no-cache && \
     apk upgrade  --no-cache && \
