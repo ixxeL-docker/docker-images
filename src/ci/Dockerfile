@@ -28,8 +28,7 @@ LABEL org.opencontainers.image.title="ci-toolbox"
 LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/ci/Dockerfile"
 LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
 
-COPY --from=builder /usr/local/bin/helm \
-                    /usr/local/bin/hadolint \
+COPY --from=builder /usr/local/bin/hadolint \
                     /usr/local/bin/gh \
                     /usr/local/bin/
 
