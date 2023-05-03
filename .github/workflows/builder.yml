@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  helm:
+  builder:
     uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
     with:
       # component: builder
