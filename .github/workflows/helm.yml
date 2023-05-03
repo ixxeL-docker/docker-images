@@ -21,7 +21,7 @@ jobs:
       github-api-auth: true
       fail-on: low
       cache-registry: docker.io/ixxel
-      podman-registry: docker.io/ixxel
+      podman-registry: docker.io
       podman-username: ixxel
       docker-hub-login: true
     secrets:
