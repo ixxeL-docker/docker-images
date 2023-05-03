@@ -27,10 +27,9 @@ COPY ./pki_root_ca.pem /usr/local/share/ca-certificates/root.crt
 COPY ./pki_int_ca.pem /usr/local/share/ca-certificates/int.crt
 COPY --from=builder /usr/local/bin/gh /usr/local/bin/
 
-RUN --mount=type=cache,target=/var/cache/apk \
-    apk update && \
-    apk upgrade && \
-    apk add --update && \
+RUN apk update --no-cache && \
+    apk upgrade  --no-cache && \
+    apk add --no-cache --update \
     git \
     curl \
     bash \
