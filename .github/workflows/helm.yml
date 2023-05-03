@@ -13,11 +13,12 @@ jobs:
   helm:
     uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
     with:
+      build-image: ${{ vars.BUILD_IMG }}
       component: helm
       workingdir: src/helm
       img-name: toolbox
       artefact: Dockerfile
-      github-api-auth: true
+      github-api-auth: ${{ vars.GH_API_AUTH }}
       fail-on: low
       cache-registry: ${{ vars.CACHE_REGISTRY }}
       podman-registry: ${{ vars.DOCKER_HUB_REGISTRY }}

@@ -13,11 +13,12 @@ jobs:
   aio:
     uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
     with:
+      build-image: ${{ vars.BUILD_IMG }}
       component: aio
       workingdir: src/aio
       img-name: toolbox
       artefact: Dockerfile
-      github-api-auth: true
+      github-api-auth: ${{ vars.CACHE_REGISTRY }}
       fail-on: low
       cache-registry: ${{ vars.CACHE_REGISTRY }}
       podman-registry: ${{ vars.DOCKER_HUB_REGISTRY }}
