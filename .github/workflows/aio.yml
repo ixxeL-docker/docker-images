@@ -8,6 +8,21 @@ on:
     paths:
       - 'src/aio/**'
   workflow_dispatch:
+    inputs:
+      github-api-auth:
+        type: boolean
+    #   name:
+    #     type: choice
+    #     options: 
+    #     - monalisa
+    #     - cschleiden
+    #   message:
+    #     required: true
+    #   use-emoji:
+    #     type: boolean
+    #     description: Include  emojis
+    #   environment:
+    #     type: environment
 
 jobs:
   aio:
@@ -18,7 +33,7 @@ jobs:
       workingdir: src/aio
       img-name: toolbox
       artefact: Dockerfile
-      github-api-auth: ${{ vars.CACHE_REGISTRY }}
+      github-api-auth: true
       fail-on: low
       cache-registry: ${{ vars.CACHE_REGISTRY }}
       podman-registry: ${{ vars.DOCKER_HUB_REGISTRY }}

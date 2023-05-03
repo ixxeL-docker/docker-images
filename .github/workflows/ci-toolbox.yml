@@ -8,6 +8,9 @@ on:
     paths:
       - 'src/ci/**'
   workflow_dispatch:
+    inputs:
+      github-api-auth:
+        type: boolean
 
 jobs:
   ci-toolbox:
@@ -18,7 +21,7 @@ jobs:
       workingdir: src/ci
       img-name: toolbox
       artefact: Dockerfile
-      github-api-auth: ${{ vars.CACHE_REGISTRY }}
+      github-api-auth: true
       fail-on: low
       cache-registry: ${{ vars.CACHE_REGISTRY }}
       podman-registry: ${{ vars.DOCKER_HUB_REGISTRY }}
