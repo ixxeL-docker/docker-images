@@ -38,6 +38,7 @@ RUN apk update --no-cache && \
     moreutils \
     util-linux \
     tzdata \
+    step-cli \
     ca-certificates && \
     cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
     update-ca-certificates
