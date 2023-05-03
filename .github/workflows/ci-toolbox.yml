@@ -15,13 +15,12 @@ jobs:
     with:
       component: ci
       workingdir: src/ci
-      format: cli
       img-name: toolbox
       artefact: Dockerfile
       github-api-auth: true
       fail-on: low
-      cache-registry: docker.io/ixxel
-      podman-registry: docker.io
+      cache-registry: ${{ vars.CACHE_REGISTRY }}
+      podman-registry: ${{ vars.DOCKER_HUB_REGISTRY }}
       podman-username: ixxel
       docker-hub-login: true
     secrets:
