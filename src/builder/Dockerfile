@@ -11,7 +11,7 @@ ENV TZ="Europe/Paris"
 
 LABEL maintainer="fredspiers@gmail.com"
 LABEL org.opencontainers.image.authors="FSPIERS"
-LABEL org.opencontainers.image.title="ci-builder-toolbox"
+LABEL org.opencontainers.image.title="builder-toolbox"
 LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/builder/Dockerfile"
 LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
 
@@ -23,22 +23,21 @@ RUN apk update --no-cache && \
     fuse3 fuse-overlayfs openssh pigz shadow-uidmap xz \
     git \
     curl \
-    podman \
-    podman-docker \
     bash \
     jq \
     yq \
     moreutils \
     util-linux \
     tzdata && \
-    cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
-    sed -i 's/^#mount_program/mount_program/' /etc/containers/storage.conf
+    cp /usr/share/zoneinfo/${TZ} /etc/localtime
 
 RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
     grype \
     syft \
     cosign \
-    helm
+    helm \
+    podman && \
+    sed -i 's/^#mount_program/mount_program/' /etc/containers/storage.conf
 
 RUN apk add --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
     kubectl \

@@ -1,0 +1,34 @@
+---
+name: base-toolbox build
+on:
+  push:
+    branches:
+    - 'main'
+    - 'release/**'
+    paths:
+      - 'src/base/**'
+  workflow_dispatch:
+    inputs:
+      github-api-auth:
+        type: boolean
+
+jobs:
+  helm:
+    uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
+    with:
+      build-image: ${{ vars.BUILD_IMG }}
+      component: base
+      workingdir: src/base
+      img-name: toolbox
+      artefact: Dockerfile
+      github-api-auth: true
+      fail-on: low
+      cache-registry: ${{ vars.CACHE_REGISTRY }}
+      podman-registry: ${{ vars.DOCKER_HUB_REGISTRY }}
+      podman-username: ixxel
+      docker-hub-login: true
+    secrets:
+      github-api-rest-token: ${{ secrets.GH_API_TOKEN }}
+      docker-io-pwd: ${{ secrets.DOCKER_IO_PWD }}
+      registry-password: ${{ secrets.DOCKER_IO_PWD }}
+

@@ -5,8 +5,6 @@ ARG BASE_REGISTRY
 
 FROM ${BASE_REGISTRY}alpine:3.17 AS builder
 
-ARG RELEASE_CLI=v0.15.0
-
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk update --no-cache && \
     apk add tar curl --no-cache --update && \

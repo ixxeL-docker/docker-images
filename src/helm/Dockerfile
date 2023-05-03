@@ -10,7 +10,7 @@ ENV TZ="Europe/Paris"
 
 LABEL maintainer="fredspiers@gmail.com"
 LABEL org.opencontainers.image.authors="FSPIERS"
-LABEL org.opencontainers.image.title="ci-helm-toolbox"
+LABEL org.opencontainers.image.title="helm-toolbox"
 LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/helm/Dockerfile"
 LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
 
@@ -34,8 +34,6 @@ RUN helm plugin install "https://github.com/chartmuseum/helm-push" && \
 
 RUN pip3 install --no-cache-dir --upgrade checkov
 
-# ENV IMG_USER="$IMG_USER"
-# ENV HELM_PLUGINS=/home/${IMG_USER}/.local/share/helm/plugins
 ENV HELM_PLUGINS=/root/.local/share/helm/plugins
 
 # RUN addgroup -S ${IMG_USER} && \
