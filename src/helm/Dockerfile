@@ -1,4 +1,6 @@
 # checkov:skip=CKV_DOCKER_2: This is not a running container. Its purpose is to be used in CI pipeline jobs
+# checkov:skip=CKV_DOCKER_3: GH actions require root containers
+# checkov:skip=CKV_DOCKER_8: GH actions require root containers
 ARG BASE_REGISTRY
 FROM ${BASE_REGISTRY}python:3.11-alpine3.17
 
@@ -35,6 +37,8 @@ RUN pip3 install --no-cache-dir --upgrade checkov
 # ENV IMG_USER="$IMG_USER"
 # ENV HELM_PLUGINS=/home/${IMG_USER}/.local/share/helm/plugins
 ENV HELM_PLUGINS=/root/.local/share/helm/plugins
+
+ENV TEST=ok
 
 # RUN addgroup -S ${IMG_USER} && \
 #     adduser -S ${IMG_USER} -G ${IMG_USER}
