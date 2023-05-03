@@ -9,10 +9,10 @@ FROM ${BASE_REGISTRY}python:3.11-alpine3.17
 
 ENV TZ="Europe/Paris"
 
-LABEL maintainer="warehousebox@decathlon.net"
-LABEL org.opencontainers.image.authors="CS-WAREHOUSEBOX"
-LABEL org.opencontainers.image.title="builder-toolbox"
-LABEL org.opencontainers.image.source="https://github.com/dktunited/whbox-docker-common/blob/master/docker/gh-actions/Dockerfile.imgbuild"
+LABEL maintainer="fredspiers@gmail.com"
+LABEL org.opencontainers.image.authors="FSPIERS"
+LABEL org.opencontainers.image.title="ci-builder-toolbox"
+LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/builder/Dockerfile"
 LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
 
 COPY --from=buildkit /usr/bin/ /usr/bin/
