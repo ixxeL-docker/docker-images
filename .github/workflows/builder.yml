@@ -13,7 +13,7 @@ jobs:
   helm:
     uses: ixxeL-actions/workflows/.github/workflows/container-img-builder.yaml@main
     with:
-      component: builder
+      # component: builder
       workingdir: src/builder
       format: cli
       img-name: toolbox

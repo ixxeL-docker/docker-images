@@ -1,4 +1,6 @@
 # checkov:skip=CKV_DOCKER_2: This is not a running container. Its purpose is to be used in CI pipeline jobs
+# checkov:skip=CKV_DOCKER_3: GH actions must be root to work
+# checkov:skip=CKV_DOCKER_8: GH actions must be root to work
 ARG BASE_REGISTRY
 FROM ${BASE_REGISTRY}python:3.11-alpine3.17
 
