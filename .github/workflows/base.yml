@@ -22,10 +22,10 @@ jobs:
       img-name: toolbox
       artefact: Dockerfile
       github-api-auth: true
-      fail-on: low
+      fail-on: critical
       cache-registry: ${{ vars.CACHE_REGISTRY }}
       podman-registry: ${{ vars.DOCKER_HUB_REGISTRY }}
-      podman-username: ixxel
+      podman-username: ${{ vars.DOCKER_HUB_USER }}
       docker-hub-login: true
     secrets:
       github-api-rest-token: ${{ secrets.GH_API_TOKEN }}
