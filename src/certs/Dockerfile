@@ -22,6 +22,7 @@ RUN apk update --no-cache && \
     bash \
     jq \
     yq \
+    wget \
     moreutils \
     util-linux \
     ca-certificates \

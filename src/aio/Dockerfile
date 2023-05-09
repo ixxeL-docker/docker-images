@@ -1,40 +1,97 @@
-FROM alpine:latest AS builder
+# checkov:skip=CKV_DOCKER_2: This is not a running container. Its purpose is to be used in CI pipeline jobs
+# checkov:skip=CKV_DOCKER_3: Kaniko must be root to work
+# checkov:skip=CKV_DOCKER_8: Kaniko must be root to work
+ARG BASE_REGISTRY
 
+FROM ${BASE_REGISTRY}alpine:3.17 AS builder
+
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk update --no-cache \
     && apk add curl --no-cache --update \
-    && curl -sLO "https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64" \
-    && chmod +x hadolint-Linux-x86_64 \
-    && mv ./hadolint-Linux-x86_64 /usr/local/bin/hadolint 
+    && K9S_VERSION=$(curl -sSfL "https://github.com/derailed/k9s/releases/latest" | grep -Eo "^\\s+v[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\$" | sed 's/ //g' | sort -rV | uniq | head -1) \
+    && curl -sSfL "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz" | tar -xz \
+    && mv ./k9s /usr/local/bin/k9s
 
-FROM alpine:latest
+FROM ${BASE_REGISTRY}ixxel/toolbox:cd-latest as aio
 
-LABEL maintainer="Frederic Spiers <fredspiers@gmail.com>" \
-      component="CI/CD tools"
+LABEL org.opencontainers.image.title="all-in-one-toolbox"
+LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/aio/Dockerfile"
 
-ENV TZ="Europe/Paris" \
-    IMG_VERSION="1.1.0"
+COPY ./config.fish ~/.config/fish/config.fish
 
-COPY --from=builder /usr/local/bin/hadolint /usr/local/bin/
+COPY ./starship.toml ~/.config/starship.toml
 
-WORKDIR /usr/app
+COPY --from=builder /usr/local/bin/k9s \
+                    /usr/local/bin/
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
-    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-    && apk update --no-cache \
-    && apk upgrade --no-cache \  
-    && apk add --no-cache --update \
-    curl \
-    bash \
-    jq \
-    python3 \
-    py3-pip \
-    skopeo \
-    shellcheck \
-    nodejs \
-    npm \
-    tzdata \
-    && cp /usr/share/zoneinfo/${TZ} /etc/localtime
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk update --no-cache && \
+    apk upgrade --no-cache && \
+    apk add --no-cache --update \
+    unzip \
+    fzf \
+    bat \
+    net-tools \
+    openssl \
+    icu-libs \
+    gcompat
 
-RUN pip3 install --no-cache-dir flake8 pytest pytest-cov coverage
+RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/main" \
+    fish
 
-RUN npm install jslint eslint jshint
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
+    starship \
+    && helm plugin install "https://github.com/chartmuseum/helm-push" \
+    && helm plugin install "https://github.com/databus23/helm-diff" \
+    # && helm plugin install "https://github.com/datreeio/helm-datree" \
+    && fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher" \
+    && fish -c "fisher install jethrokuan/fzf" \
+    && fish -c "fisher install evanlucas/fish-kubectl-completions" \
+    && fish -c "fisher install danhper/fish-ssh-agent" \
+    && { \
+    echo "#!/usr/bin/fish"; \
+    echo "set -x; set temp_dir (mktemp -d); cd $temp_dir"; \
+    echo "curl -fsSLO https://github.com/kubernetes-sigs/krew/releases/latest/download/krew-linux_amd64.tar.gz"; \
+    echo "tar zxvf krew-linux_amd64.tar.gz"; \
+    echo "./krew-linux_amd64 install krew"; \
+    echo "set -e temp_dir"; \
+    } > install-krew.sh \
+    && fish -c "chmod +x ./install-krew.sh" \
+    && fish -c "./install-krew.sh" \
+    && fish -c "echo 'set -gx PATH $PATH $HOME/.krew/bin' >> ~/.config/fish/config.fish" \
+    && fish -c "kubectl krew install ctx" \
+    && fish -c "kubectl krew install ns" \
+    && fish -c "kubectl krew install neat" \
+    && fish -c "kubectl krew install datree" \
+    && fish -c "kubectl krew install kyverno" \
+    && fish -c "kubectl krew install whoami" \
+    && fish -c "kubectl krew install cert-manager" \
+    && fish -c "kubectl krew install ktop" \
+    && fish -c "kubectl krew install spy" \
+    && fish -c "kubectl krew install pod-lens" \
+    && fish -c "kubectl krew install view-utilization" \
+    && fish -c "kubectl krew install view-allocations" \
+    && fish -c "kubectl krew install kc" \
+    && fish -c "kubectl krew install gadget" \
+    && { \
+    echo "function k --wraps kubectl"; \
+    echo '  kubectl $argv'; \
+    echo "end"; \
+    } > ~/.config/fish/functions/k.fish \
+    && { \
+    echo "function vk --wraps vcluster"; \
+    echo '  vcluster $argv'; \
+    echo "end"; \
+    } > ~/.config/fish/functions/vk.fish \
+    && { \
+    echo "function bat"; \
+    echo '  command bat --paging=never $argv'; \
+    echo "end"; \
+    } > ~/.config/fish/functions/bat.fish
+
+RUN pip3 install --no-cache-dir --upgrade checkov python-gitlab ansible
+
+# ENTRYPOINT ["python", "-m", "http.server", "8080"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+
