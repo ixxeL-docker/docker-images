@@ -17,10 +17,6 @@ FROM ${BASE_REGISTRY}ixxel/toolbox:cd-latest as aio
 LABEL org.opencontainers.image.title="all-in-one-toolbox"
 LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/aio/Dockerfile"
 
-COPY ./config.fish ~/.config/fish/config.fish
-
-COPY ./starship.toml ~/.config/starship.toml
-
 COPY --from=builder /usr/local/bin/k9s \
                     /usr/local/bin/
 
@@ -90,8 +86,13 @@ RUN --mount=type=cache,target=/var/cache/apk \
     echo "end"; \
     } > ~/.config/fish/functions/bat.fish
 
+COPY ./config.fish ~/.config/fish/config.fish
+
+COPY ./starship.toml ~/.config/starship.toml
+
 RUN pip3 install --no-cache-dir --upgrade checkov python-gitlab ansible
 
+ENV HELM_PLUGINS=/root/.local/share/helm/plugins
 # ENTRYPOINT ["python", "-m", "http.server", "8080"]
 ENTRYPOINT ["tail", "-f", "/dev/null"]
 

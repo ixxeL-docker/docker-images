@@ -29,6 +29,7 @@ switch $distro
 end
 
 set -gx PATH $PATH $HOME/.krew/bin
+set -gx PATH $PATH $HOME/.local/bin
 set -gx STARSHIP_DISTRO $ICON
 
 starship init fish | source
