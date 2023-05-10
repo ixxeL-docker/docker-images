@@ -10,7 +10,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
     apk update --no-cache --update && \
     apk add curl tar --no-cache --update && \
     HELMDOC_VERSION=$(curl -sSfL "https://github.com/norwoodj/helm-docs/releases/latest" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sort | uniq | tail -1) && \
-    HELMDOC_VER_LIGHT=$(echo "$KUBE_SCORE_VERSION" | sed 's/v//g') && \
+    HELMDOC_VER_LIGHT=$(echo "$HELMDOC_VERSION" | sed 's/v//g') && \
     curl -sSfL "https://github.com/norwoodj/helm-docs/releases/download/${HELMDOC_VERSION}/helm-docs_${HELMDOC_VER_LIGHT}_Linux_x86_64.tar.gz" | tar -xz && \
     mv ./helm-docs /usr/local/bin/helm-docs
 
