@@ -86,9 +86,9 @@ RUN --mount=type=cache,target=/var/cache/apk \
     echo "end"; \
     } > ~/.config/fish/functions/bat.fish
 
-COPY ./config.fish ~/.config/fish/config.fish
+COPY ./config.fish /root/.config/fish/config.fish
 
-COPY ./starship.toml ~/.config/starship.toml
+COPY ./starship.toml /root/.config/starship.toml
 
 RUN pip3 install --no-cache-dir --upgrade checkov python-gitlab ansible
 
