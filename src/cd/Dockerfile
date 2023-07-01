@@ -13,7 +13,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
     chmod +x ./argocd-linux-amd64 && \
     mv ./argocd-linux-amd64 /usr/local/bin/argocd && \
     curl -sSfL "https://install-cli.jfrog.io" | sh && \
-    KYVERNO_VERSION=$(curl -kL "https://github.com/kyverno/kyverno/releases/latest" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sort | uniq | tail -1) && \
+    KYVERNO_VERSION=$(curl -kL "https://github.com/kyverno/kyverno/releases/latest" | grep -E '(<title>Release)\\s*v[0-9]+\.[0-9]+\.[0-9]+' | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sort | uniq | tail -1) && \
     curl -sSfLO "https://github.com/kyverno/kyverno/releases/download/${KYVERNO_VERSION}/kyverno-cli_${KYVERNO_VERSION}_linux_x86_64.tar.gz" && \
     tar -xzf kyverno-cli_${KYVERNO_VERSION}_linux_x86_64.tar.gz && \
     mv kyverno /usr/local/bin/kyverno && \
