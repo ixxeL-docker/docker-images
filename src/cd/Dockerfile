@@ -58,7 +58,6 @@ RUN --mount=type=cache,target=/var/cache/apk \
 
 RUN --mount=type=cache,target=/var/cache/apk \
     apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
-    github-cli \
     terraform \
     kustomize \
     cosign \

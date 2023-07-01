@@ -36,9 +36,10 @@ RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpi
     syft \
     cosign \
     helm \
+    kubectl \
+    github-cli \
     podman && \
     sed -i 's/^#mount_program/mount_program/' /etc/containers/storage.conf
 
 RUN apk add --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
-    kubectl \
     dive
