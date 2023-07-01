@@ -14,7 +14,7 @@ on:
 
 jobs:
   helm-toolbox:
-    uses: ixxeL-actions/workflows/.github/workflows/__container-img-builder__.yaml@main
+    uses: ixxeL-actions/workflows/.github/workflows/__release-img-builder__.yaml@main
     with:
       build-image: ${{ vars.BUILD_IMG }}
       component: helm
