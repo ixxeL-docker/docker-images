@@ -2,8 +2,11 @@
 # checkov:skip=CKV_DOCKER_3: Kaniko must be root to work
 # checkov:skip=CKV_DOCKER_8: Kaniko must be root to work
 ARG BASE_REGISTRY
+ARG KYVERNO_VERSION
 
 FROM ${BASE_REGISTRY}alpine:latest AS builder
+
+ENV KYVERNO_VERSION="v1.10.0"
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN --mount=type=cache,target=/var/cache/apk \
@@ -13,7 +16,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
     chmod +x ./argocd-linux-amd64 && \
     mv ./argocd-linux-amd64 /usr/local/bin/argocd && \
     curl -sSfL "https://install-cli.jfrog.io" | sh && \
-    KYVERNO_VERSION=$(curl -kL "https://github.com/kyverno/kyverno/releases/latest" | grep -E '(<title>Release)\\s*v[0-9]+\.[0-9]+\.[0-9]+' | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sort | uniq | tail -1) && \
+    # KYVERNO_VERSION=$(curl -kL "https://github.com/kyverno/kyverno/releases/latest" | grep -E "(<title>Release).*v[0-9]+\.[0-9]+\.[0-9]+" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | sort | uniq | tail -1) && \
     curl -sSfLO "https://github.com/kyverno/kyverno/releases/download/${KYVERNO_VERSION}/kyverno-cli_${KYVERNO_VERSION}_linux_x86_64.tar.gz" && \
     tar -xzf kyverno-cli_${KYVERNO_VERSION}_linux_x86_64.tar.gz && \
     mv kyverno /usr/local/bin/kyverno && \
@@ -62,10 +65,10 @@ RUN --mount=type=cache,target=/var/cache/apk \
     vault \
     grype \
     syft \
+    kubectl \
     podman && \
     sed -i 's/^#mount_program/mount_program/' /etc/containers/storage.conf
 
 RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
-    kubectl \
     dive \
-    trivy
+    trivy   
