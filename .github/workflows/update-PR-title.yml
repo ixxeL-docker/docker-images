@@ -1,0 +1,12 @@
+---
+name: update PR title
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  update-pr-title:
+    uses: ixxeL-actions/workflows/.github/workflows/update-pr-title.yaml@main
+    secrets:
+      git-token: ${{ secrets.PAT }}
