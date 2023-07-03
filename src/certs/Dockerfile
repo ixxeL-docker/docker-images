@@ -33,4 +33,4 @@ RUN apk update --no-cache && \
 
 RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
     helm \
-    github-cli
+    github-cli 
