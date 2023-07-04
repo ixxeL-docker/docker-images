@@ -70,4 +70,4 @@ RUN --mount=type=cache,target=/var/cache/apk \
 
 RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
     dive \
-    trivy 
+    trivy  
