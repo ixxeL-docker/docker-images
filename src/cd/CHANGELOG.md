@@ -13,3 +13,8 @@
 #### Test
 - `d7947e0`: test PR mutate (#12)
 
+
+## Release cd-v0.2.2 - 2023-07-04
+#### Feat
+- `bb08240`: feat/full-(cd) (#13)
+
