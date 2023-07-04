@@ -18,3 +18,8 @@
 #### Feat
 - `bb08240`: feat/full-(cd) (#13)
 
+
+## Release cd-v0.3.0 - 2023-07-04
+#### Feat
+- `e0f5cda`: feat/great-(cd) (#14)
+
