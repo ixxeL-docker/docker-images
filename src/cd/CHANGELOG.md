@@ -82,3 +82,8 @@ test
 #### Chore
 - `0985300`: chore/cd-update-(cd) (#30)
 
+
+## Release cd-v2.0.0 - 2023-07-08
+#### Test
+- `9fbe47b`: breaking/test-cd3-(cd) (#34)
+
