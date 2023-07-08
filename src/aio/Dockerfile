@@ -3,7 +3,7 @@
 # checkov:skip=CKV_DOCKER_8: Kaniko must be root to work
 ARG BASE_REGISTRY
 
-FROM ${BASE_REGISTRY}alpine:3.17 AS builder
+FROM ${BASE_REGISTRY}alpine:latest AS builder
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk update --no-cache \
