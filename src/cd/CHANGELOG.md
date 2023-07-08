@@ -29,3 +29,8 @@
 test
 - `fe238ec`: !feat/test-(cd) (#26)
 
+
+## Release cd-v0.0.1 - 2023-07-08
+#### Chore
+- `0985300`: chore/cd-update-(cd) (#30)
+
