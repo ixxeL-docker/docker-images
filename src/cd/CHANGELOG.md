@@ -43,3 +43,15 @@ test
 #### Chore
 - `0985300`: chore/cd-update-(cd) (#30)
 
+
+## Release cd-v1.0.0 - 2023-07-08
+#### Test
+- `b9f6f88`: breaking/test-(cd) (#31)
+
+#### Feat
+test
+- `d390972`: feat/test direct commit tag
+
+#### Chore
+- `0985300`: chore/cd-update-(cd) (#30)
+
