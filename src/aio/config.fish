@@ -32,4 +32,5 @@ set -gx PATH $PATH $HOME/.krew/bin
 set -gx PATH $PATH $HOME/.local/bin
 set -gx STARSHIP_DISTRO $ICON
 
-starship init fish | source
+# starship init fish | source
+oh-my-posh init fish --config /root/.config/oh-my-theme.json | source

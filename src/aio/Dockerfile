@@ -38,6 +38,7 @@ RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpi
 RUN --mount=type=cache,target=/var/cache/apk \
     apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
     starship \
+    && curl -s "https://ohmyposh.dev/install.sh" | bash -s \
     && helm plugin install "https://github.com/chartmuseum/helm-push" \
     && helm plugin install "https://github.com/databus23/helm-diff" \
     # && helm plugin install "https://github.com/datreeio/helm-datree" \
@@ -104,6 +105,8 @@ RUN --mount=type=cache,target=/var/cache/apk \
 COPY ./config.fish /root/.config/fish/config.fish
 
 COPY ./starship.toml /root/.config/starship.toml
+
+COPY ./oh-my-theme.json /root/.config/oh-my-theme.json
 
 RUN pip3 install --no-cache-dir --upgrade checkov python-gitlab ansible
 
