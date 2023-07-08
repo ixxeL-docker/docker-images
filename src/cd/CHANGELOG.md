@@ -23,3 +23,9 @@
 #### Feat
 - `e0f5cda`: feat/great-(cd) (#14)
 
+
+## Release cd-v1.0.0 - 2023-07-08
+#### Feat
+test
+- `fe238ec`: !feat/test-(cd) (#26)
+
