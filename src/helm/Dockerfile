@@ -14,7 +14,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
     curl -sSfL "https://github.com/norwoodj/helm-docs/releases/download/${HELMDOC_VERSION}/helm-docs_${HELMDOC_VER_LIGHT}_Linux_x86_64.tar.gz" | tar -xz && \
     mv ./helm-docs /usr/local/bin/helm-docs
 
-FROM ${BASE_REGISTRY}python:3.11-alpine3.17
+FROM ${BASE_REGISTRY}python:3.11-alpine3.18
 
 ENV TZ="Europe/Paris"
 
@@ -22,7 +22,7 @@ LABEL maintainer="fredspiers@gmail.com"
 LABEL org.opencontainers.image.authors="FSPIERS"
 LABEL org.opencontainers.image.title="helm-toolbox"
 LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/helm/Dockerfile"
-LABEL org.opencontainers.image.base.name="python:3.11-alpine3.17"
+LABEL org.opencontainers.image.base.name="python:3.11-alpine3.18"
 
 COPY --from=builder /usr/local/bin/helm-docs \
                     /usr/local/bin/
