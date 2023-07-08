@@ -3,7 +3,7 @@
 # checkov:skip=CKV_DOCKER_8: Kaniko must be root to work
 ARG BASE_REGISTRY
 
-FROM ${BASE_REGISTRY}alpine:3.17 AS builder
+FROM ${BASE_REGISTRY}alpine:latest AS builder
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk update --no-cache \
@@ -80,6 +80,21 @@ RUN --mount=type=cache,target=/var/cache/apk \
     echo '  vcluster $argv'; \
     echo "end"; \
     } > ~/.config/fish/functions/vk.fish \
+    && { \
+    echo "function keti --wraps=kubectl-exec-it"; \
+    echo '  kubectl exec -it $argv'; \
+    echo "end"; \
+    } > ~/.config/fish/functions/keti.fish \
+    && { \
+    echo "function kd --wraps=kubectl-describe"; \
+    echo '  kubectl describe $argv'; \
+    echo "end"; \
+    } > ~/.config/fish/functions/kd.fish \
+    && { \
+    echo "function kg --wraps=kubectl-get"; \
+    echo '  kubectl get $argv'; \
+    echo "end"; \
+    } > ~/.config/fish/functions/kg.fish \
     && { \
     echo "function bat"; \
     echo '  command bat --paging=never $argv'; \
