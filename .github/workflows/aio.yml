@@ -3,43 +3,27 @@ name: aio-toolbox build
 on:
   push:
     branches:
-    - 'main'
-    - 'release/**'
+      - 'main'
+    paths:
+      - 'src/aio/**'
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'main'
     paths:
       - 'src/aio/**'
   workflow_dispatch:
-    inputs:
-      github-api-auth:
-        type: boolean
-    #   name:
-    #     type: choice
-    #     options: 
-    #     - monalisa
-    #     - cschleiden
-    #   message:
-    #     required: true
-    #   use-emoji:
-    #     type: boolean
-    #     description: Include  emojis
-    #   environment:
-    #     type: environment
 
 jobs:
   aio-toolbox:
-    uses: ixxeL-actions/workflows/.github/workflows/__release-img-builder__.yaml@main
+    uses: ixxeL-actions/workflows/.github/workflows/docker-build.yaml@main
     with:
-      build-image: ${{ vars.BUILD_IMG }}
       component: aio
       workingdir: src/aio
       img-name: toolbox
-      artefact: Dockerfile
-      github-api-auth: true
-      fail-on: critical
-      cache-registry: ${{ vars.CACHE_REGISTRY }}
-      podman-registry: ${{ vars.DOCKER_HUB_REGISTRY }}
       podman-username: ${{ vars.DOCKER_HUB_USER }}
-      docker-hub-login: true
     secrets:
-      github-api-rest-token: ${{ secrets.GH_API_TOKEN }}
-      docker-io-pwd: ${{ secrets.DOCKER_IO_PWD }}
-      registry-password: ${{ secrets.DOCKER_IO_PWD }}
+      git-token: ${{ secrets.PAT }}
+      DOCKER_IO_PWD: ${{ secrets.DOCKER_IO_PWD }}
