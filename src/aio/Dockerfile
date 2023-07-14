@@ -46,6 +46,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
     && fish -c "fisher install jethrokuan/fzf" \
     && fish -c "fisher install evanlucas/fish-kubectl-completions" \
     && fish -c "fisher install danhper/fish-ssh-agent" \
+    && mkdir -p /root/.ssh \
     && { \
     echo "#!/usr/bin/fish"; \
     echo "set -x; set temp_dir (mktemp -d); cd $temp_dir"; \
