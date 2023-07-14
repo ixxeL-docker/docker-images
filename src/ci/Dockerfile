@@ -10,14 +10,18 @@ RUN apk update --no-cache && \
     apk add tar curl --no-cache --update && \
     curl -sSfLO "https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64" && \
     chmod +x hadolint-Linux-x86_64 && \
-    mv ./hadolint-Linux-x86_64 /usr/local/bin/hadolint
+    mv ./hadolint-Linux-x86_64 /usr/local/bin/hadolint && \
+    VALIDATOR_VERSION=$(curl -sSfL "https://github.com/mpalmer/action-validator/releases" | grep -oE "v[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}" | uniq | sort -rV | head -1) && \
+    curl -sSfLO "https://github.com/mpalmer/action-validator/releases/download/${VALIDATOR_VERSION}/action-validator_linux_amd64" && \
+    chmod +x action-validator_linux_amd64 && \
+    mv ./action-validator_linux_amd64 /usr/local/bin/action-validator
 
 FROM ${BASE_REGISTRY}ixxel/toolbox:certs-latest AS cd-toolbox
 
 LABEL org.opencontainers.image.title="ci-toolbox"
 LABEL org.opencontainers.image.source="https://github.com/ixxeL-docker/docker-images/blob/main/src/ci/Dockerfile"
 
-COPY --from=builder /usr/local/bin/hadolint /usr/local/bin/
+COPY --from=builder /usr/local/bin/hadolint /usr/local/bin/action-validator /usr/local/bin/
 
 RUN apk update --no-cache && \
     apk upgrade --no-cache && \
@@ -29,4 +33,4 @@ RUN apk update --no-cache && \
     gradle \
     yarn
 
-RUN pip3 install --no-cache-dir --upgrade checkov
+RUN pip3 install --no-cache-dir --upgrade checkov pre-commit
