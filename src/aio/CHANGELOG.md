@@ -10,3 +10,8 @@
 #### Fix
 - `58e7dfe`: fix/ssh-plugin-(aio) (#41)
 
+
+## Release aio-v1.1.2 - 2023-07-15
+#### Chore
+- `5b419a9`: chore/trigger-(aio) (#43)
+
