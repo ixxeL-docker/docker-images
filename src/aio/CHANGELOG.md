@@ -17,3 +17,8 @@
 #### Chore
 
 - `5b419a9`: chore/trigger-(aio) (#43)
+
+## Release aio-v1.1.3 - 2023-07-15
+#### Style
+- `645adb7`: style: using precommit and prettier
+
