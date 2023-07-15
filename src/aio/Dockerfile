@@ -96,7 +96,15 @@ RUN --mount=type=cache,target=/var/cache/apk \
     echo "function kg --wraps=kubectl-get"; \
     echo '  kubectl get $argv'; \
     echo "end"; \
-    } > ~/.config/fish/functions/kg.fish \
+    && { \
+    echo "function kgp --wraps=kubectl-get-pod"; \
+    echo '  kubectl get pod $argv'; \
+    echo "end"; \
+    && { \
+    echo "function kgd --wraps=kubectl-get-deploy"; \
+    echo '  kubectl get deploy $argv'; \
+    echo "end"; \
+    } > ~/.config/fish/functions/kgd.fish \
     && { \
     echo "function bat"; \
     echo '  command bat --paging=never $argv'; \
