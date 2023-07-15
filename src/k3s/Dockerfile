@@ -27,17 +27,17 @@ ENV PATH="$PATH:/bin/aux"
 
 # Add our patch to enable Kubelet to act as NFS client
 # so our pods can use NFS volumes
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
-    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-    && apk update --no-cache \
-    && apk upgrade --no-cache \  
-    && apk add --no-cache --update \
-    nfs-utils
+# RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
+#     && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+#     && apk update --no-cache \
+#     && apk upgrade --no-cache \
+#     && apk add --no-cache --update \
+#     nfs-utils
 
-RUN echo "#!/bin/sh" > /entrypoint && \
-echo -e '\
-rpcbind -f & \n\
-/bin/k3s $@' >> /entrypoint && chmod +x /entrypoint
+# RUN echo "#!/bin/bash" > /entrypoint && \
+# echo '\
+# rpcbind -f & \n\
+# /bin/k3s $@' >> /entrypoint && chmod +x /entrypoint
 
-ENTRYPOINT ["/entrypoint"]
-CMD ["agent"]
+# ENTRYPOINT ["/entrypoint"]
+# CMD ["agent"]

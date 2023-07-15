@@ -35,6 +35,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
 RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/main" \
     fish
 
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN --mount=type=cache,target=/var/cache/apk \
     apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" \
     starship \
@@ -124,4 +125,3 @@ RUN pip3 install --no-cache-dir --upgrade checkov python-gitlab ansible
 ENV HELM_PLUGINS=/root/.local/share/helm/plugins
 # ENTRYPOINT ["python", "-m", "http.server", "8080"]
 ENTRYPOINT ["tail", "-f", "/dev/null"]
-

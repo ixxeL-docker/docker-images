@@ -1,21 +1,19 @@
----
 name: aio-toolbox build
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/aio/**'
+      - "src/aio/**"
   pull_request:
     types:
       - opened
       - synchronize
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/aio/**'
+      - "src/aio/**"
   workflow_dispatch:
-
 jobs:
   aio-toolbox:
     uses: ixxeL-actions/workflows/.github/workflows/docker-build.yaml@main

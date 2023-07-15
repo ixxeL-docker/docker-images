@@ -3,17 +3,17 @@ name: certs-toolbox build
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/certs/**'
+      - "src/certs/**"
   pull_request:
     types:
       - opened
       - synchronize
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/certs/**'
+      - "src/certs/**"
   workflow_dispatch:
 
 jobs:
@@ -27,4 +27,3 @@ jobs:
     secrets:
       git-token: ${{ secrets.PAT }}
       DOCKER_IO_PWD: ${{ secrets.DOCKER_IO_PWD }}
-

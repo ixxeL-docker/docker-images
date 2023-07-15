@@ -3,17 +3,17 @@ name: cd-toolbox build
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/cd/**'
+      - "src/cd/**"
   pull_request:
     types:
       - opened
       - synchronize
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/cd/**'
+      - "src/cd/**"
   workflow_dispatch:
 
 jobs:

@@ -25,7 +25,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
 
 FROM ${BASE_REGISTRY}moby/buildkit:master as buildkit
 
-FROM ${BASE_REGISTRY}ixxel/musl-dns-hack-alpine as dnshack
+FROM ${BASE_REGISTRY}ixxel/musl-dns-hack-alpine:latest as dnshack
 
 FROM ${BASE_REGISTRY}ixxel/toolbox:certs-latest AS cd-toolbox
 

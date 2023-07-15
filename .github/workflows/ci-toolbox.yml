@@ -3,17 +3,17 @@ name: ci-toolbox build
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/ci/**'
+      - "src/ci/**"
   pull_request:
     types:
       - opened
       - synchronize
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/ci/**'
+      - "src/ci/**"
   workflow_dispatch:
 
 jobs:

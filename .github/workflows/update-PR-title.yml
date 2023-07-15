@@ -5,7 +5,7 @@ on:
     types:
       - opened
     paths-ignore:
-      - '.github/**'
+      - ".github/**"
 
 jobs:
   update-pr-title:

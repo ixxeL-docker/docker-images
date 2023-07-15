@@ -41,5 +41,5 @@ RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpi
     podman && \
     sed -i 's/^#mount_program/mount_program/' /etc/containers/storage.conf
 
-RUN apk add --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
+RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
     dive

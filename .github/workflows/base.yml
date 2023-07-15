@@ -3,17 +3,17 @@ name: base-toolbox build
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/base/**'
+      - "src/base/**"
   pull_request:
     types:
       - opened
       - synchronize
     branches:
-      - 'main'
+      - "main"
     paths:
-      - 'src/base/**'
+      - "src/base/**"
   workflow_dispatch:
 
 jobs:
