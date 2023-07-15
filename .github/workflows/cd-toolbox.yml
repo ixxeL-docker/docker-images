@@ -15,7 +15,6 @@ on:
     paths:
       - "src/cd/**"
   workflow_dispatch:
-
 jobs:
   cd-toolbox:
     uses: ixxeL-actions/workflows/.github/workflows/docker-build.yaml@main

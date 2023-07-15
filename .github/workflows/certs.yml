@@ -15,7 +15,6 @@ on:
     paths:
       - "src/certs/**"
   workflow_dispatch:
-
 jobs:
   certs-toolbox:
     uses: ixxeL-actions/workflows/.github/workflows/docker-build.yaml@main

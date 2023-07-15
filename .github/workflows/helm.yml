@@ -15,7 +15,6 @@ on:
     paths:
       - "src/helm/**"
   workflow_dispatch:
-
 jobs:
   helm-toolbox:
     uses: ixxeL-actions/workflows/.github/workflows/docker-build.yaml@main

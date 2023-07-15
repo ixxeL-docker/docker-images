@@ -15,7 +15,6 @@ on:
     paths:
       - "src/base/**"
   workflow_dispatch:
-
 jobs:
   base-toolbox:
     uses: ixxeL-actions/workflows/.github/workflows/docker-build.yaml@main
