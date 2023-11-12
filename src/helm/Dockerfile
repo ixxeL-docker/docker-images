@@ -46,7 +46,8 @@ RUN apk add --no-cache --update --repository="http://dl-cdn.alpinelinux.org/alpi
 
 RUN helm plugin install "https://github.com/chartmuseum/helm-push" && \
     helm plugin install "https://github.com/datreeio/helm-datree" && \
-    helm plugin install "https://github.com/helm-unittest/helm-unittest"
+    helm plugin install "https://github.com/helm-unittest/helm-unittest" && \
+    helm plugin install "https://github.com/melmorabity/helm-kubeconform"
 
 RUN pip3 install --no-cache-dir --upgrade checkov
 
