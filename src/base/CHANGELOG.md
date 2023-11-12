@@ -29,3 +29,15 @@ test
 #### Style
 - `31a8909`: style: using yamlfmt
 
+
+## Release base-v0.1.0 - 2023-11-12
+#### Feat
+test
+- `745cc5a`: feat/retest-(base) (#45)
+
+#### Feat
+- `249ef3c`: feat/update-python-(base) (#44)
+
+#### Style
+- `31a8909`: style: using yamlfmt
+
