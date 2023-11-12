@@ -26,3 +26,8 @@ test
 #### Feat
 - `16594e0`: feat/update-py-cd-(certs) (#50)
 
+
+## Release certs-v1.1.1 - 2023-11-12
+#### Revert
+- `c9b9694`: revert/certs-py3.11-(certs) (#52)
+
