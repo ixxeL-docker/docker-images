@@ -21,3 +21,8 @@ test
 #### Test
 
 - `d7947e0`: test PR mutate (#12)
+
+## Release certs-v1.1.0 - 2023-11-12
+#### Feat
+- `16594e0`: feat/update-py-cd-(certs) (#50)
+
